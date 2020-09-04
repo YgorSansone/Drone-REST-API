@@ -50,7 +50,7 @@ const Drone = sequelize.define("drone", {
     allowNull: false,
   },
 
-  fly: {
+  current_fly: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
@@ -74,7 +74,7 @@ sequelize.sync().then(() => {
       max_speed: 80,
       average_speed: 84.3,
       status: "success",
-      fly: 10,
+      current_fly: 10,
     },
     {
       id: 2,
@@ -86,7 +86,7 @@ sequelize.sync().then(() => {
       max_speed: 4.8,
       average_speed: 10.6,
       status: "repair",
-      fly: 94,
+      current_fly: 94,
     },
   ])
     .then(function () {})
