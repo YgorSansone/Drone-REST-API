@@ -26,41 +26,49 @@ const Drone = sequelize.define("drone", {
     allowNull: false,
   },
   custumer_image: {
-    type: DataTypes.STRING,
+    type: Sequelize.TEXT,
     allowNull: true,
+    description: Sequelize.TEXT
   },
   customer_name: {
-    type: DataTypes.STRING,
+    type: Sequelize.TEXT,
     allowNull: true,
+    description: Sequelize.TEXT
   },
   customer_address: {
-    type: DataTypes.STRING,
+    type: Sequelize.TEXT,
     allowNull: true,
+    description: Sequelize.TEXT
   },
   battery: {
-    type: DataTypes.INTEGER,
+    type: Sequelize.INTEGER ,
     allowNull: false,
+    description: Sequelize.INTEGER 
   },
   max_speed: {
-    type: DataTypes.REAL,
+    type: Sequelize.FLOAT,
     allowNull: false,
+    description: Sequelize.FLOAT
   },
   average_speed: {
-    type: DataTypes.REAL,
+    type: Sequelize.FLOAT,
     allowNull: false,
+    description: Sequelize.FLOAT
   },
 
   current_fly: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    description: Sequelize.INTEGER
   },
   status: {
     type: DataTypes.ENUM("charging", "offline", "failed", "repair", "success"),
     allowNull: true,
+    description: Sequelize.Sequelize.ENUM
   },
 });
 
 sequelize.sync().then(() => {
-  console.log(`Database & tables created!`);
+  console.log(`Database online!`);
 });
 module.exports = Drone
