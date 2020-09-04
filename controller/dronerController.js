@@ -47,29 +47,13 @@ module.exports = {
   },
   PutId(req, res) {
     try {
-      var fly = parseInt(req.body.fly);
+      var current_fly = parseInt(req.body.current_fly);
 
-      var haserro = false;
-      if (req.body.status != null) {
-        switch (req.body.status) {
-          case "charging":
-            break;
-          case "offline":
-            break;
-          case "failed":
-            break;
-          case "repair":
-            break;
-          case "success":
-            break;
-          default:
-            haserro = true;
-        }
-      }
-      if (req.body.fly != null) {
-        if (0 > fly || fly > 100) {
-          haserro = true;
-        }
+      var haserro = teste(req.body.status, req.body.current_fly != null ? current_fly: null);
+      if (req.body.current_fly != null) {
+        var haserro = teste(req.body.status, current_fly);
+      }else{
+        var haserro = teste(req.body.status);
       }
       if (haserro == false) {
         Drone.findByPk(req.params.id)
@@ -83,7 +67,7 @@ module.exports = {
                 max_speed: req.body.max_speed,
                 average_speed: req.body.average_speed,
                 status: req.body.status,
-                fly: req.body.fly,
+                current_fly: req.body.current_fly,
               })
               .then((drone) => {
                 res.status(200).json(drone);
@@ -110,25 +94,8 @@ module.exports = {
   },
   Post(req, res) {
     try {
-      var fly = parseInt(req.body.fly);
-        var haserro = false;
-        switch (req.body.status) {
-          case "charging":
-            break;
-          case "offline":
-            break;
-          case "failed":
-            break;
-          case "repair":
-            break;
-          case "success":
-            break;
-          default:
-            haserro = true;
-        }
-        if (0 > fly || fly > 100) {
-            haserro = true;
-        }
+      var current_fly = parseInt(req.body.current_fly);
+        var haserro = teste(req.body.status, current_fly);
         if (haserro == false) {
           Drone.create({
             custumer_image: req.body.custumer_image,
@@ -138,7 +105,7 @@ module.exports = {
             max_speed: req.body.max_speed,
             average_speed: req.body.average_speed,
             status: req.body.status,
-            fly: req.body.fly,
+            current_fly: req.body.current_fly,
           })
             .then(function (drone) {
               res.status(201).json(drone);
@@ -176,3 +143,28 @@ module.exports = {
     }
   },
 };
+function teste(status, current_current_fly){
+  var haserro = false;
+  if (status != null) {
+    switch (status) {
+      case "charging":
+        break;
+      case "offline":
+        break;
+      case "failed":
+        break;
+      case "repair":
+        break;
+      case "success":
+        break;
+      default:
+        haserro = true;
+    }
+  }
+  if (current_current_fly != null) {
+    if (0 > current_current_fly || current_current_fly > 100) {
+      haserro = true;
+    }
+  }
+  return haserro;
+}
